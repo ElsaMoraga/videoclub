@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="videoclubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="alquiler">
+          <Key>
+            <PropertyRef Name="idAlquiler" />
+          </Key>
+          <Property Name="idAlquiler" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCliente" Type="int" />
+          <Property Name="idArticulo" Type="int" />
+          <Property Name="Fecha" Type="date" />
+          <Property Name="Dias" Type="int" />
+          <Property Name="TotalPagar" Type="float" />
+        </EntityType>
+        <EntityType Name="articulo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoProducto" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Titulo" Type="nchar" MaxLength="50" />
+          <Property Name="Estado" Type="nchar" MaxLength="50" />
+          <Property Name="PrecioPorDia" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="cliente">
+          <Key>
+            <PropertyRef Name="idCliente" />
+          </Key>
+          <Property Name="idCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NIF" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Nombre" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="Apellido" Type="nchar" MaxLength="100" />
+          <Property Name="FechaNacimiento" Type="date" />
+          <Property Name="Direccion" Type="nchar" MaxLength="100" />
+          <Property Name="Telefono1" Type="nchar" MaxLength="10" />
+          <Property Name="Telefono2" Type="nchar" MaxLength="10" />
+          <Property Name="Email" Type="nchar" MaxLength="50" />
+          <Property Name="Estado" Type="nchar" MaxLength="10" />
+          <Property Name="VIP" Type="bit" />
+          <Property Name="FechaAlta" Type="date" />
+          <Property Name="Descuento" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="pelicula">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Duracion" Type="int" />
+          <Property Name="NumeroDvd" Type="int" />
+          <Property Name="AnioPublicacion" Type="int" />
+          <Property Name="AnioCompra" Type="int" />
+        </EntityType>
+        <EntityType Name="videoJuego">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="NumeroDiscos" Type="int" />
+          <Property Name="Plataforma" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK__alquiler__idArti__04E4BC85">
+          <End Role="articulo" Type="Self.articulo" Multiplicity="0..1" />
+          <End Role="alquiler" Type="Self.alquiler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="articulo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="alquiler">
+              <PropertyRef Name="idArticulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__alquiler__idClie__02FC7413">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="0..1" />
+          <End Role="alquiler" Type="Self.alquiler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="idCliente" />
+            </Principal>
+            <Dependent Role="alquiler">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_pelicula_articulo">
+          <End Role="articulo" Type="Self.articulo" Multiplicity="1" />
+          <End Role="pelicula" Type="Self.pelicula" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="articulo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="pelicula">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_videojuego_articulo">
+          <End Role="articulo" Type="Self.articulo" Multiplicity="1" />
+          <End Role="videoJuego" Type="Self.videoJuego" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="articulo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="videoJuego">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="videoclubModelStoreContainer">
+          <EntitySet Name="alquiler" EntityType="Self.alquiler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="articulo" EntityType="Self.articulo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cliente" EntityType="Self.cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pelicula" EntityType="Self.pelicula" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="videoJuego" EntityType="Self.videoJuego" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__alquiler__idArti__04E4BC85" Association="Self.FK__alquiler__idArti__04E4BC85">
+            <End Role="articulo" EntitySet="articulo" />
+            <End Role="alquiler" EntitySet="alquiler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__alquiler__idClie__02FC7413" Association="Self.FK__alquiler__idClie__02FC7413">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="alquiler" EntitySet="alquiler" />
+          </AssociationSet>
+          <AssociationSet Name="fk_pelicula_articulo" Association="Self.fk_pelicula_articulo">
+            <End Role="articulo" EntitySet="articulo" />
+            <End Role="pelicula" EntitySet="pelicula" />
+          </AssociationSet>
+          <AssociationSet Name="fk_videojuego_articulo" Association="Self.fk_videojuego_articulo">
+            <End Role="articulo" EntitySet="articulo" />
+            <End Role="videoJuego" EntitySet="videoJuego" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="videoclubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="videoclubEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="articuloes" EntityType="videoclubModel.articulo" />
+          <EntitySet Name="alquilers" EntityType="videoclubModel.alquiler" />
+          <AssociationSet Name="FK__alquiler__idArti__04E4BC85" Association="videoclubModel.FK__alquiler__idArti__04E4BC85">
+            <End Role="articulo" EntitySet="articuloes" />
+            <End Role="alquiler" EntitySet="alquilers" />
+          </AssociationSet>
+          <EntitySet Name="clientes" EntityType="videoclubModel.cliente" />
+          <AssociationSet Name="FK__alquiler__idClie__02FC7413" Association="videoclubModel.FK__alquiler__idClie__02FC7413">
+            <End Role="cliente" EntitySet="clientes" />
+            <End Role="alquiler" EntitySet="alquilers" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="articulo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoProducto" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Titulo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Estado" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="alquilers" Relationship="videoclubModel.FK__alquiler__idArti__04E4BC85" FromRole="articulo" ToRole="alquiler" />
+          <Property Name="PrecioPorDia" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="pelicula" BaseType="videoclubModel.articulo">
+          <Property Name="Duracion" Type="Int32" />
+          <Property Name="NumeroDvd" Type="Int32" />
+          <Property Name="AnioPublicacion" Type="Int32" />
+          <Property Name="AnioCompra" Type="Int32" />
+        </EntityType>
+        <EntityType Name="videoJuego" BaseType="videoclubModel.articulo">
+          <Property Name="NumeroDiscos" Type="Int32" />
+          <Property Name="Plataforma" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="alquiler">
+          <Key>
+            <PropertyRef Name="idAlquiler" />
+          </Key>
+          <Property Name="idAlquiler" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="Dias" Type="Int32" />
+          <NavigationProperty Name="articulo" Relationship="videoclubModel.FK__alquiler__idArti__04E4BC85" FromRole="alquiler" ToRole="articulo" />
+          <Property Name="TotalPagar" Type="Double" />
+          <NavigationProperty Name="cliente" Relationship="videoclubModel.FK__alquiler__idClie__02FC7413" FromRole="alquiler" ToRole="cliente" />
+        </EntityType>
+        <Association Name="FK__alquiler__idArti__04E4BC85">
+          <End Type="videoclubModel.articulo" Role="articulo" Multiplicity="0..1" />
+          <End Type="videoclubModel.alquiler" Role="alquiler" Multiplicity="*" />
+        </Association>
+        <EntityType Name="cliente">
+          <Key>
+            <PropertyRef Name="idCliente" />
+          </Key>
+          <Property Name="idCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NIF" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Apellido" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="Direccion" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Telefono1" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Telefono2" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Estado" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="VIP" Type="Boolean" />
+          <Property Name="FechaAlta" Type="DateTime" Precision="0" />
+          <Property Name="Descuento" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="alquilers" Relationship="videoclubModel.FK__alquiler__idClie__02FC7413" FromRole="cliente" ToRole="alquiler" />
+        </EntityType>
+        <Association Name="FK__alquiler__idClie__02FC7413">
+          <End Type="videoclubModel.cliente" Role="cliente" Multiplicity="0..1" />
+          <End Type="videoclubModel.alquiler" Role="alquiler" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="videoclubModelStoreContainer" CdmEntityContainer="videoclubEntities">
+          <EntitySetMapping Name="articuloes">
+            <EntityTypeMapping TypeName="IsTypeOf(videoclubModel.articulo)">
+              <MappingFragment StoreEntitySet="articulo">
+                <ScalarProperty Name="PrecioPorDia" ColumnName="PrecioPorDia" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(videoclubModel.pelicula)">
+              <MappingFragment StoreEntitySet="pelicula">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Duracion" ColumnName="Duracion" />
+                <ScalarProperty Name="NumeroDvd" ColumnName="NumeroDvd" />
+                <ScalarProperty Name="AnioPublicacion" ColumnName="AnioPublicacion" />
+                <ScalarProperty Name="AnioCompra" ColumnName="AnioCompra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(videoclubModel.videoJuego)">
+              <MappingFragment StoreEntitySet="videoJuego">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NumeroDiscos" ColumnName="NumeroDiscos" />
+                <ScalarProperty Name="Plataforma" ColumnName="Plataforma" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="alquilers">
+            <EntityTypeMapping TypeName="videoclubModel.alquiler">
+              <MappingFragment StoreEntitySet="alquiler">
+                <ScalarProperty Name="TotalPagar" ColumnName="TotalPagar" />
+                <ScalarProperty Name="Dias" ColumnName="Dias" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="idAlquiler" ColumnName="idAlquiler" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK__alquiler__idArti__04E4BC85" TypeName="videoclubModel.FK__alquiler__idArti__04E4BC85" StoreEntitySet="alquiler">
+            <EndProperty Name="alquiler">
+              <ScalarProperty Name="idAlquiler" ColumnName="idAlquiler" />
+            </EndProperty>
+            <EndProperty Name="articulo">
+              <ScalarProperty Name="Id" ColumnName="idArticulo" />
+            </EndProperty>
+            <Condition ColumnName="idArticulo" IsNull="false" />
+          </AssociationSetMapping>
+          <EntitySetMapping Name="clientes">
+            <EntityTypeMapping TypeName="videoclubModel.cliente">
+              <MappingFragment StoreEntitySet="cliente">
+                <ScalarProperty Name="Descuento" ColumnName="Descuento" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="VIP" ColumnName="VIP" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefono2" ColumnName="Telefono2" />
+                <ScalarProperty Name="Telefono1" ColumnName="Telefono1" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="NIF" ColumnName="NIF" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK__alquiler__idClie__02FC7413" TypeName="videoclubModel.FK__alquiler__idClie__02FC7413" StoreEntitySet="alquiler">
+            <EndProperty Name="alquiler">
+              <ScalarProperty Name="idAlquiler" ColumnName="idAlquiler" />
+            </EndProperty>
+            <EndProperty Name="cliente">
+              <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+            </EndProperty>
+            <Condition ColumnName="idCliente" IsNull="false" />
+          </AssociationSetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

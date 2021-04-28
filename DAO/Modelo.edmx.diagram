@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="02819dd04778423cb83a39f96e62a311" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="videoclubModel.articulo" Width="1.5" PointX="6.75" PointY="0.5" />
+        <EntityTypeShape EntityType="videoclubModel.pelicula" Width="1.5" PointX="8" PointY="3.25" />
+        <EntityTypeShape EntityType="videoclubModel.videoJuego" Width="1.5" PointX="5.375" PointY="3.25" />
+        <InheritanceConnector EntityType="videoclubModel.pelicula" />
+        <InheritanceConnector EntityType="videoclubModel.videoJuego" ManuallyRouted="false" >
+        </InheritanceConnector>
+        <EntityTypeShape EntityType="videoclubModel.alquiler" Width="1.5" PointX="3.5" PointY="0.75" />
+        <AssociationConnector Association="videoclubModel.FK__alquiler__idArti__04E4BC85" />
+        <EntityTypeShape EntityType="videoclubModel.cliente" Width="1.5" PointX="0.75" PointY="1" />
+        <AssociationConnector Association="videoclubModel.FK__alquiler__idClie__02FC7413" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
